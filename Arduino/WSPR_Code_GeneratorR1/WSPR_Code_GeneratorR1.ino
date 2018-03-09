@@ -4,6 +4,28 @@
  http://physics.princeton.edu/pulsar/K1JT/WSPR_Instructions.TXT
 K1JT FN20 30
  */
+/*
+ * To work using an UNO, as the Arduino part of the project.
+ * There were couple of changes needed to make it go.
+ * The first thing you'll need to do, is find these two lines in the sketch.
+ *   int S[162];
+ *   int D[162];
+ * and change their variable types from "int" to "byte"
+ * This will "free up" some SRAM and will allow the UNO run stably.
+ * Next, make sure that the encoder switch's "CLK" pin is connected to your UNO's digital pin 2. Not digital pin 1 as I have it here with the Micro. Pin 2 on the UNO is the interrupt pin, where as on the Micro pin 1 is used.
+ * Next, find these lines in the sketch:
+ *         const int PinCLK=1;  // Used for generating interrupts using CLK signal
+ *         const int PinDT=14;  // Used for reading DT signal
+ *         const int PinSW=16;  // Used for the push button switch
+ * and make the following respective changes:
+ *         const int PinCLK=2; 
+ *         const int PinDT=3; 
+ *         const int PinSW=4;
+ * The UNO doesn't support digital pins 14 & 16, so you will need to move these switch connections to UNO pins 3 & 4.
+ * If for some reason you'd rather use pins other than 3 & 4, it should be no problem, just be sure to change the "PinDT" & "PinSW" variables to match your wiring.    
+*
+*/
+
 
  #include <U8glib.h>
 #if defined(__AVR_ATmega32U4__)
@@ -54,7 +76,7 @@ double WWV0Freq = 9999902.0; //For initial Setup & calibration set WWV0Freq = 10
 //                             Note: The encoder switch will change the DDS freq, while in "Cal" mode.  
 //                             When found, set variable "WWV0Freq" equal to the display "Freq:" reading  
 //Arduino Clk Frequency correction; Number of miliseconds per Xmit interval (2 minutes) that need to be added or subtracted to keep the time in sync
-double msCorrection = 246; 
+double msCorrection = 248; 
 double xtalfctr;
 long NxtBitTime;
 int OptionCnt = 5; //Total test option count; Note Last option is to DDS Calibration.
@@ -383,8 +405,8 @@ void loop() {
       bits.
  *    
  */
-  int S[162];
-  int D[162];
+  byte S[162];
+  byte D[162];
   int strmptr =0;
  // setup and initialize shift 32 bit registers
  byte ShftReg1[4];
