@@ -1,0 +1,63 @@
+A viewer asked for details on building the passband filters used with this Amplifier.
+To anyone else interested, here's an explanation of the process:
+  With a 5 volt source, and a 100 milliwatts out, I estimated the 
+amplifier's apparent impedance to be ~50 ohms (measured at the 2N2222's 
+collector, Q3).
+To raise the "Q" (and use reasonable component values) in the Pi matching circuit, I chose to increase the 
+amplifier's output impedance by using a setup transformer 
+(toroid U$1 in the circuit diagram).
+For core(s) I had/used T50-2 Micrometals Cores (source: Ebay).
+Now to form the winding(s) of this transformer, I took 4 stands of ~28AWG 
+wire (wire wrap and or enamel wire should work equally well, & exact gauge is not terribly important) 
+and twisted them together, using a fairly tight twist (~5 twists/inch).
+I then wrapped 8 turns of this 4 stranded wire around the core. 
+One strand is connected to collector/5volts, 
+and the other three are connected in series 
+(pay close attention to your connections, to ensure that they are in fact wired in series). 
+This forms a 3:1 setup transformer. 
+And as such, raises the amp's output impedance to ~450 ohms.
+Now, for each band I wanted to operate on, I went to a web based Pi 
+calculator, like this one:
+https://www.eeweb.com/tools/pi-match
+And using 450 ohms as the source, 50 ohms as the load, and arbitrarily 
+selecting a "Q" of 6, I got these Cs, Cl, & L values for 40 mtrs:
+
+L  =  2.15Micro Henry's
+Cs =  303pF
+Cl =  802pf
+
+Using the Amidon Calculator found here:
+https://www.changpuak.ch/electronics/amidon_toroid_calculator.php
+It suggests that 21 turns on T50-2 core will get something close to the 
+needed 2.15 micro henrys.
+That's the theory. In practice, I used a 220pf, and a 470 pf capacitor, 
+wired parallel to give a nameplate value 690pf for Cl.
+My T50 core has twenty turns (not 21).
+And my Cs has a nameplate value of 470pf.
+Here's why. Earlier I assumed that the source resistance was ~450 ohms. In 
+reality (primarily because of the transformer), the amplifier's output is 
+not a pure resistance, but has an inductive component too.
+To get a good match on the source side of the filter, we need to cancel out 
+the unknown reactive (inductive) component. That means we are going to need 
+more capacitance than what the pi calculator suggests for Cs.
+So what I did is start with the calculated Cs value, and put 30 -365pf 
+variable capacitor (a standard BC band tuning capacitor) in parallel with it.
+Then adjust this variable capacitor to find the maximum stable output (for 
+my antenna/or dummy load),
+Once happy with the setting, I removed these two capacitors, and measured 
+their combined value, (Using a cheap Chinese component analyzer, like this one
+http://www.ebay.com/itm/Digital-All-in-1-Component-Tester-Transistor-Diode-Capacitor-Inductor-ESR-Meter-/191870868908?hash=item2cac651dac ).
+Then  sorting through my collection of capacitors, I found one 
+that gave a close match, to the analyzer's reading, and used it to replace 
+the original Cs parallel combination.
+Bottom line, what I did here, technique wise, should work for you. But 
+because of layout, and parts variations, your best performance might be 
+realized with parts having somewhat different nameplate values.
+Having an oscilloscope, when working on something like this, is an 
+invaluable. And I hope you have access to one. If not, it can still be 
+done. But the scope really takes the mystery out of what's going on.
+
+
+Jim (KW4KD)
+[Many thanks to JJ Siebert/ZR6JS for inspiring this write up]
+
