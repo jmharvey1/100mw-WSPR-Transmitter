@@ -79,7 +79,7 @@ double WWV0Freq = 9999902.0; //For initial Setup & calibration set WWV0Freq = 10
 double msCorrection = 248; 
 double xtalfctr;
 long NxtBitTime;
-int OptionCnt = 5; //Total test option count; Note Last option is to DDS Calibration.
+int OptionCnt = 6; //Total test option count; Note Last option is to DDS Calibration.
 //double Start_Freq; 
 bool debug = false;
 
@@ -808,26 +808,31 @@ void Splash_Screen(int option){
    float TxFreq;
    switch (option) {
      case 1: //Set Freq Limits for 30_MTRS 
+      Cf = 14.0971e6; //Center of the 20M band allocation (14.0956 +0.0015 [BFO offset])
+      sprintf (str_Band, " 20"); 
+      break;
+    
+     case 2: //Set Freq Limits for 30_MTRS 
       Cf = 10.140200e6; //Center of the 30M band allocation
       sprintf (str_Band, " 30"); 
       break;
 
-     case 2: //Set Freq Limits for 40_MTRS 
+     case 3: //Set Freq Limits for 40_MTRS 
       Cf = 7.040100e6;
       sprintf (str_Band, " 40"); 
       break;
 
-     case 3: //Set Freq Limits for 80_MTRS 
+     case 4: //Set Freq Limits for 80_MTRS 
       Cf = 3.594100e6;
       sprintf (str_Band, " 80"); 
       break;
 
-    case 4: //Set Freq Limits for 160_MTRS 
+    case 5: //Set Freq Limits for 160_MTRS 
       Cf = 1.836600e6;
       sprintf (str_Band, "160"); 
       break;  
 
-    case 5: //Set Freq for 10_MMhz 
+    case 6: //Set Freq for 10_MMhz 
       Cf = 10.0000e6;
       sprintf (str_Band, "Cal 10Mhz ");
       break;  

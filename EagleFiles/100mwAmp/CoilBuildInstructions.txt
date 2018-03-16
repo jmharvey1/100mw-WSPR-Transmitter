@@ -61,3 +61,13 @@ done. But the scope really takes the mystery out of what's going on.
 Jim (KW4KD)
 [Many thanks to JJ Siebert/ZR6JS for inspiring this write up]
 
+For 20M these are the values found/used:
+
+L  =  1.06Micro Henry's
+Cs =  150pF
+Cl =  397pf
+
+Amidon Calculator esitmates 15 turns are needed for a value of 1.1uh
+on a T50-2 core. I used 14 turns.
+CL nameplate value 330pf (but measured 380pf on test instrument)
+Cs measured optimum 164pf (into a 50ohm dummy load)  
